@@ -1,0 +1,63 @@
+openapi: 3.0.0
+servers:
+  - description: BQXT Public
+    url: "https://staging.int.bitqt.net/api"
+info:
+  description: BQTX Public Endpoints
+  version: 1.0.0
+  title: BQTX PublicEndpoints
+  contact:
+    email: patrick@bqtx.com
+  license:
+    name: Apache 2.0
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+tags:
+  - name: public
+paths:
+  /public/pairs:
+    get:
+      tags:
+        - public
+      summary: pairs list
+      description: retrieve list of pairs
+      operationId: pairs
+      parameters:
+        - $ref: "#/components/parameters/contentType"
+      responses:
+        "200":
+          description: pairs list
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  result:
+                    type: array
+                    items:
+                      type: string
+                      example:
+                        - BTC/USDT
+                        - ETH/BTC
+        # "400":
+        #   description: Bad request, check in schema types
+        #   content:
+        #     application/json:
+        #       schema:
+        #         allOf:
+        #           - $ref: "../schemas/errors.yaml#/Error"
+        #           - $ref: "../schemas/errors.yaml#/BadRequest"
+        #           - oneOf:
+        #               - $ref: "../schemas/errors.yaml#/ValidationRole"
+        #               - $ref: "../schemas/errors.yaml#/ValidationToken"
+
+components:
+  parameters:
+    contentType:
+          name: Content-Type
+          in: header
+          required: true
+          schema:
+            type: string
+            example: application/json
