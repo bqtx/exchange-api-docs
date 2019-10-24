@@ -41,7 +41,7 @@ paths:
                         - BTC/USDT
                         - ETH/BTC
         "500":
-          $ref: "#/components/responses/InternalServeError"
+          $ref: "#/components/responses/InternalServerError"
 
   /public/pairs/{symbol}:
     get:
@@ -102,7 +102,7 @@ paths:
         "404":
           $ref: "#/components/responses/NotFound"
         "500":
-          $ref: "#/components/responses/InternalServeError"
+          $ref: "#/components/responses/InternalServerError"
 
   /public/fees:
     get:
@@ -133,7 +133,7 @@ paths:
                         type: number
                         example: 0.1
         "500":
-          $ref: "#/components/responses/InternalServeError"
+          $ref: "#/components/responses/InternalServerError"
 
   /public/volumes:
     get:
@@ -180,7 +180,7 @@ paths:
                               type: number
                               example: 2.2
         "500":
-          $ref: "#/components/responses/InternalServeError"
+          $ref: "#/components/responses/InternalServerError"
 
   # /public/summary:
   #   get:
@@ -211,7 +211,7 @@ paths:
   #                       type: number
   #                       example: 0.1
   # "500":
-  #         $ref: "#/components/responses/InternalServeError"
+  #         $ref: "#/components/responses/InternalServerError"
 
   /public/trades/{symbol}:
     get:
@@ -278,7 +278,7 @@ paths:
         "404":
           $ref: "#/components/responses/NotFound"
         "500":
-          $ref: "#/components/responses/InternalServeError"
+          $ref: "#/components/responses/InternalServerError"
 
   /public/orders/{symbol}:
     get:
@@ -336,7 +336,7 @@ paths:
         "404":
           $ref: "#/components/responses/NotFound"
         "500":
-          $ref: "#/components/responses/InternalServeError"
+          $ref: "#/components/responses/InternalServerError"
 
 components:
   responses:
