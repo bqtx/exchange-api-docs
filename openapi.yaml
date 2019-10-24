@@ -40,24 +40,360 @@ paths:
                       example:
                         - BTC/USDT
                         - ETH/BTC
-        # "400":
-        #   description: Bad request, check in schema types
-        #   content:
-        #     application/json:
-        #       schema:
-        #         allOf:
-        #           - $ref: "../schemas/errors.yaml#/Error"
-        #           - $ref: "../schemas/errors.yaml#/BadRequest"
-        #           - oneOf:
-        #               - $ref: "../schemas/errors.yaml#/ValidationRole"
-        #               - $ref: "../schemas/errors.yaml#/ValidationToken"
+        "500":
+          $ref: "#/components/responses/InternalServeError"
 
-components:
-  parameters:
-    contentType:
-          name: Content-Type
-          in: header
+  /public/pairs/{symbol}:
+    get:
+      tags:
+        - public
+      summary: pair
+      description: retrieve pair info
+      operationId: pair
+      parameters:
+        - $ref: "#/components/parameters/contentType"
+        - in: path
+          name: symbol
+          description: pair symbol
           required: true
           schema:
             type: string
-            example: application/json
+            example: BTC/USDT
+      responses:
+        "200":
+          description: pair info
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  result:
+                    type: object
+                    properties:
+                      base:
+                        type: string
+                        example: BTC
+                      quote:
+                        type: string
+                        example: USDT
+                      isActive:
+                        type: boolean
+                        example: true
+                      isMarginActive:
+                        type: boolean
+                      lostSize:
+                        type: number
+                      minOrderAmount:
+                        type: number
+                        example: 0.1
+                      amountPrecisone:
+                        type: number
+                        example: 4
+                      pricePrecisone:
+                        type: number
+                        example: 8
+                      totalPrecisone:
+                        type: number
+                        example: 8
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalServeError"
+
+  /public/fees:
+    get:
+      tags:
+        - public
+      summary: fees structure
+      description: return object with fees structure
+      operationId: fees
+      parameters:
+        - $ref: "#/components/parameters/contentType"
+      responses:
+        "200":
+          description: fees structure
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  result:
+                    type: object
+                    properties:
+                      maker:
+                        type: number
+                        example: 0.1
+                      taker:
+                        type: number
+                        example: 0.1
+        "500":
+          $ref: "#/components/responses/InternalServeError"
+
+  /public/volumes:
+    get:
+      tags:
+        - public
+      summary: month daily volumes
+      description: return list of daily volumes by pairs
+      operationId: fees
+      parameters:
+        - $ref: "#/components/parameters/contentType"
+      responses:
+        "200":
+          description: month daily volumes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  result:
+                    type: object
+                    properties:
+                      pairs(BTC/USDT):
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            timestamp:
+                              type: string
+                              format: date
+                            volume:
+                              type: number
+                              example: 3.4
+                      pairs(ETH/BTC):
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            timestamp:
+                              type: string
+                              format: date
+                            volume:
+                              type: number
+                              example: 2.2
+        "500":
+          $ref: "#/components/responses/InternalServeError"
+
+  # /public/summary:
+  #   get:
+  #     tags:
+  #       - public
+  #     summary: fees structure
+  #     description: return object with fees structure
+  #     operationId: fees
+  #     parameters:
+  #       - $ref: "#/components/parameters/contentType"
+  #     responses:
+  #       "200":
+  #         description: fees structure
+  #         content:
+  #           application/json:
+  #             schema:
+  #               type: object
+  #               properties:
+  #                 status:
+  #                   type: boolean
+  #                 result:
+  #                   type: object
+  #                   properties:
+  #                     maker:
+  #                       type: number
+  #                       example: 0.1
+  #                     taker:
+  #                       type: number
+  #                       example: 0.1
+  # "500":
+  #         $ref: "#/components/responses/InternalServeError"
+
+  /public/trades/{symbol}:
+    get:
+      tags:
+        - public
+      summary: trades list
+      description: return list of current trades
+      operationId: trades list
+      parameters:
+        - $ref: "#/components/parameters/contentType"
+      responses:
+        "200":
+          description: trades list
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  result:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        maker:
+                          type: string
+                          format: ObjectID
+                        taker:
+                          type: string
+                          format: ObjectID
+                        makerOrderId:
+                          type: string
+                          format: string
+                        takerOrderId:
+                          type: string
+                          format: string
+                        side:
+                          type: string
+                          example: buy
+                        pair:
+                          type: string
+                          example: BTC/USDT
+                        base:
+                          type: string
+                          example: BTC
+                        quote:
+                          type: string
+                          example: USDT
+                        quantity:
+                          type: number
+                          example: 12.34
+                        price:
+                          type: number
+                          example: 8322.64
+                        makerFee:
+                          type: number
+                          example: 0.1
+                        takerFee:
+                          type: number
+                          example: 0.1
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalServeError"
+
+  /public/orders/{symbol}:
+    get:
+      tags:
+        - public
+      summary: fees structure
+      description: return object with fees structure
+      operationId: fees
+      parameters:
+        - $ref: "#/components/parameters/contentType"
+      responses:
+        "200":
+          description: fees structure
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  result:
+                    type: object
+                    properties:
+                      orderId:
+                        type: string
+                      side:
+                        type: string
+                      type:
+                        type: string
+                      subType:
+                        type: string
+                      price:
+                        type: number
+                        example: 8380.32
+                      averagePrice:
+                        type: number
+                        example: 8295.40
+                      quantity:
+                        type: number
+                        example: 0.28
+                      cumQuantity:
+                        type: number
+                        example: 0.30
+                      frozenQuantity:
+                        type: number
+                        example: 0
+                      frozenCurrency:
+                        type: string
+                      symbol:
+                        type: string
+                      status:
+                        type: string
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalServeError"
+
+components:
+  responses:
+    BadRequest:
+      description: Bad request error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: boolean
+                example: false
+              code:
+                type: integer
+                example: 400
+              type:
+                type: string
+                example: BAD_REQUEST
+    NotFound:
+      description: Not found error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: boolean
+                example: false
+              code:
+                type: integer
+                example: 404
+              type:
+                type: string
+                example: NOT_FOUND
+    InternalServerError:
+      description: Generic internal server error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: boolean
+                example: false
+              code:
+                type: integer
+                example: 500
+              type:
+                type: string
+                example: INTERNAL_SERVER_ERROR
+
+  parameters:
+    contentType:
+      name: Content-Type
+      in: header
+      required: true
+      schema:
+        type: string
+        example: application/json
