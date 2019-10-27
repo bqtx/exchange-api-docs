@@ -182,36 +182,59 @@ paths:
         "500":
           $ref: "#/components/responses/InternalServerError"
 
-  # /public/summary:
-  #   get:
-  #     tags:
-  #       - public
-  #     summary: fees structure
-  #     description: return object with fees structure
-  #     operationId: fees
-  #     parameters:
-  #       - $ref: "#/components/parameters/contentType"
-  #     responses:
-  #       "200":
-  #         description: fees structure
-  #         content:
-  #           application/json:
-  #             schema:
-  #               type: object
-  #               properties:
-  #                 status:
-  #                   type: boolean
-  #                 result:
-  #                   type: object
-  #                   properties:
-  #                     maker:
-  #                       type: number
-  #                       example: 0.1
-  #                     taker:
-  #                       type: number
-  #                       example: 0.1
-  # "500":
-  #         $ref: "#/components/responses/InternalServerError"
+  /public/summary:
+    get:
+      tags:
+        - public
+      summary: currencies summary
+      description: system status summary based on currencies
+      operationId: summary
+      parameters:
+        - $ref: "#/components/parameters/contentType"
+      responses:
+        "200":
+          description: currencies summary
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  result:
+                    type: object
+                    properties:
+                      system_time:
+                        type: number
+                      currencies:
+                        type: object
+                        properties:
+                          BTC(currency):
+                            type: object
+                            properties:
+                              symbol:
+                                type: string
+                                example: BTC
+                              isActive:
+                                type: boolean
+                                example: true
+                              isCrypto:
+                                type: boolean
+                                example: true
+                              depositActive:
+                                type: boolean
+                                example: true
+                              pendingDeposits:
+                                type: integer
+                                example: 0
+                              withdrawActive:
+                                type: boolean
+                                example: true
+                              pendingWithdrawals:
+                                type: integer
+                                example: 3
+        "500":
+          $ref: "#/components/responses/InternalServerError"
 
   /public/trades/{symbol}:
     get:
