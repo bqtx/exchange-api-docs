@@ -1,7 +1,7 @@
 openapi: 3.0.0
 servers:
   - description: BQXT Public
-    url: "https://staging.int.bitqt.net/api"
+    url: "https://api.bqtx.com"
 info:
   description: BQTX Public Endpoints
   version: 1.0.0
