@@ -236,6 +236,60 @@ paths:
         "500":
           $ref: "#/components/responses/InternalServerError"
 
+  /public/tickers:
+    get:
+      tags:
+        - public
+      summary: tickers
+      description: pairs based tickers
+      operationId: tickers
+      parameters:
+        - $ref: "#/components/parameters/contentType"
+      responses:
+        "200":
+          description: pairs tickers
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  result:
+                    type: object
+                    properties:
+                      BTC/USDT(pair):
+                        type: object
+                        properties:
+                          BTC/USDT:
+                            type: object
+                            properties:
+                              last:
+                                type: number
+                                example: 10016.10932446
+                              lowerAsk:
+                                type: number
+                                example: 9117.04816474
+                              highestBid:
+                                type: number
+                                example: 11914.19355143
+                              baseVolume:
+                                type: number
+                                example: 0.0095
+                              quoteVolume:
+                                type: number
+                                example: 0.0079
+                              high24hr:
+                                type: number
+                                example: 10122.89914221
+                              low24hr:
+                                type: number
+                                example: 9808.61579248
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+
   /public/trades/{symbol}:
     get:
       tags:
