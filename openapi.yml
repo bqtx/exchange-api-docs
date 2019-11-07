@@ -18,7 +18,7 @@ paths:
     get:
       tags:
         - public
-      summary: pairs list
+      summary: pairs
       description: retrieve list of pairs
       operationId: pairs
       parameters:
@@ -108,7 +108,7 @@ paths:
     get:
       tags:
         - public
-      summary: assets summary
+      summary: assets
       description: retrieve summary for each asset
       operationId: assets
       parameters:
@@ -155,7 +155,7 @@ paths:
     get:
       tags:
         - public
-      summary: fees structure
+      summary: fees
       description: return object with fees structure
       operationId: fees
       parameters:
@@ -186,7 +186,7 @@ paths:
     get:
       tags:
         - public
-      summary: month daily volumes
+      summary: volumes
       description: return list of daily volumes by pairs
       operationId: fees
       parameters:
@@ -233,7 +233,7 @@ paths:
     get:
       tags:
         - public
-      summary: currencies summary
+      summary: currencies
       description: system status summary based on currencies
       operationId: summary
       parameters:
@@ -338,7 +338,7 @@ paths:
     get:
       tags:
         - public
-      summary: coinmarketcap tickers
+      summary: tickers
       description: pairs info based on coinmarkecap specification
       operationId: tickers
       parameters:
@@ -375,9 +375,9 @@ paths:
     get:
       tags:
         - public
-      summary: trades list
+      summary: trades
       description: return list of current trades
-      operationId: trades list
+      operationId: trades
       parameters:
         - $ref: "#/components/parameters/contentType"
         - $ref: "#/components/parameters/limit"
@@ -422,16 +422,16 @@ paths:
     get:
       tags:
         - public
-      summary: fees structure
-      description: return object with fees structure
-      operationId: fees
+      summary: orders
+      description: return list of live orders
+      operationId: orders
       parameters:
         - $ref: "#/components/parameters/contentType"
         - $ref: "#/components/parameters/limit"
         - $ref: "#/components/parameters/marketPair"
       responses:
         "200":
-          description: fees structure
+          description: live orders list
           content:
             application/json:
               schema:
