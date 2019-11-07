@@ -104,6 +104,53 @@ paths:
         "500":
           $ref: "#/components/responses/InternalServerError"
 
+  /public/assets:
+    get:
+      tags:
+        - public
+      summary: assets summary
+      description: retrieve summary for each asset
+      operationId: assets
+      parameters:
+        - $ref: "#/components/parameters/contentType"
+      responses:
+        "200":
+          description: assets summary
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  BTC(ccy):
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        example: Bitcoin
+                      unified_cryptoasset_id:
+                        type: integer
+                        example: 1
+                      can_withdraw:
+                        type: boolean
+                        example: true
+                      can_deposit:
+                        type: boolean
+                        example: true
+                      min_withdraw:
+                        type: number
+                        example: 0.1
+                      max_withdraw:
+                        type: number
+                        example: 2
+                      maker_fee:
+                        type: number
+                        example: 0.1
+                      taker_fee:
+                        type: number
+                        example: 0.1
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+
   /public/fees:
     get:
       tags:
