@@ -371,7 +371,7 @@ paths:
         "500":
           $ref: "#/components/responses/InternalServerError"
 
-  /public/trades/{symbol}:
+  /public/trades/{market_pair}:
     get:
       tags:
         - public
@@ -380,57 +380,37 @@ paths:
       operationId: trades list
       parameters:
         - $ref: "#/components/parameters/contentType"
+        - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/side"
+        - $ref: "#/components/parameters/marketPair"
       responses:
         "200":
           description: trades list
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  status:
-                    type: boolean
-                  result:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        maker:
-                          type: string
-                          format: ObjectID
-                        taker:
-                          type: string
-                          format: ObjectID
-                        makerOrderId:
-                          type: string
-                          format: string
-                        takerOrderId:
-                          type: string
-                          format: string
-                        side:
-                          type: string
-                          example: buy
-                        pair:
-                          type: string
-                          example: BTC/USDT
-                        base:
-                          type: string
-                          example: BTC
-                        quote:
-                          type: string
-                          example: USDT
-                        quantity:
-                          type: number
-                          example: 12.34
-                        price:
-                          type: number
-                          example: 8322.64
-                        makerFee:
-                          type: number
-                          example: 0.1
-                        takerFee:
-                          type: number
-                          example: 0.1
+                type: array
+                items:
+                  type: object
+                  properties:
+                    tradeID:
+                      type: string
+                      format: ObjectID
+                    price:
+                      type: number
+                      example: 10962.32
+                    timestamp:
+                      type: integer
+                      format: unix
+                    type:
+                      type: string
+                      example: buy
+                    base_volume:
+                      type: number
+                      example: 4532
+                    quote_volume:
+                      type: number
+                      example: 0.43
         "400":
           $ref: "#/components/responses/BadRequest"
         "404":
@@ -438,7 +418,7 @@ paths:
         "500":
           $ref: "#/components/responses/InternalServerError"
 
-  /public/orders/{symbol}:
+  /public/orders/{market_pair}:
     get:
       tags:
         - public
@@ -447,6 +427,8 @@ paths:
       operationId: fees
       parameters:
         - $ref: "#/components/parameters/contentType"
+        - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/marketPair"
       responses:
         "200":
           description: fees structure
@@ -555,3 +537,27 @@ components:
       schema:
         type: string
         example: application/json
+    marketPair:
+      name: market_pair
+      in: path
+      required: true
+      schema:
+        type: string
+        example: BTC_USDT
+    limit:
+      name: limit
+      in: query
+      required: false
+      schema:
+        type: integer
+        example: 5
+    side:
+      name: side
+      in: query
+      required: false
+      schema:
+        type: string
+        enum:
+          - buy
+          - sell
+        example: buy
