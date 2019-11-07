@@ -287,8 +287,8 @@ paths:
     get:
       tags:
         - public
-      summary: tickers
-      description: pairs based tickers
+      summary: tickers (summary)
+      description: pairs based tickers summary
       operationId: tickers
       parameters:
         - $ref: "#/components/parameters/contentType"
@@ -338,9 +338,9 @@ paths:
     get:
       tags:
         - public
-      summary: tickers
+      summary: ticker
       description: pairs info based on coinmarkecap specification
-      operationId: tickers
+      operationId: ticker
       parameters:
         - $ref: "#/components/parameters/contentType"
       responses:
