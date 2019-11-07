@@ -287,6 +287,43 @@ paths:
         "500":
           $ref: "#/components/responses/InternalServerError"
 
+  /public/ticker:
+    get:
+      tags:
+        - public
+      summary: coinmarketcap tickers
+      description: pairs info based on coinmarkecap specification
+      operationId: tickers
+      parameters:
+        - $ref: "#/components/parameters/contentType"
+      responses:
+        "200":
+          description: pairs tickers
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  BTC/USDT(pair):
+                    type: object
+                    properties:
+                      last_price:
+                        type: number
+                        example: 10016.10932446
+                      base_volume:
+                        type: number
+                        example: 0.0095
+                      quote_volume:
+                        type: number
+                        example: 0.0079
+                      isFrozen:
+                        type: integer
+                        example: 1
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+
   /public/trades/{symbol}:
     get:
       tags:
