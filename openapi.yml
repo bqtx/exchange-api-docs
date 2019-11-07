@@ -478,6 +478,54 @@ paths:
         "500":
           $ref: "#/components/responses/InternalServerError"
 
+  /public/orderbook/{market_pair}:
+    get:
+      tags:
+        - public
+      summary: orderbook
+      description: return live orderbook data
+      operationId: orderbook
+      parameters:
+        - $ref: "#/components/parameters/contentType"
+        - $ref: "#/components/parameters/depth"
+        - $ref: "#/components/parameters/level"
+        - $ref: "#/components/parameters/marketPair"
+      responses:
+        "200":
+          description: trades list
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  timestamp:
+                    type: integer
+                    format: unix
+                  bids:
+                    type: array
+                    items:
+                      type: array
+                      items:
+                        type: number
+                        example:
+                          - 10324.24
+                          - 0.12
+                  asks:
+                    type: array
+                    items:
+                      type: array
+                      items:
+                        type: number
+                        example:
+                          - 9354.12
+                          - 0.014
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+
 components:
   responses:
     BadRequest:
@@ -551,6 +599,24 @@ components:
       schema:
         type: integer
         example: 5
+    depth:
+      name: depth
+      in: query
+      required: false
+      schema:
+        type: integer
+        example: 10
+    level:
+      name: level
+      in: query
+      required: false
+      schema:
+        type: integer
+        enum:
+          - 1
+          - 2
+          - 3
+      example: 3
     side:
       name: side
       in: query
