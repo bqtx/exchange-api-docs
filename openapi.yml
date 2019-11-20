@@ -229,7 +229,7 @@ paths:
         "500":
           $ref: "#/components/responses/InternalServerError"
 
-  /public/summary:
+  /public/status:
     get:
       tags:
         - public
@@ -283,7 +283,7 @@ paths:
         "500":
           $ref: "#/components/responses/InternalServerError"
 
-  /public/tickers:
+  /public/summary:
     get:
       tags:
         - public
@@ -393,7 +393,7 @@ paths:
                 items:
                   type: object
                   properties:
-                    tradeID:
+                    trade_id:
                       type: string
                       format: ObjectID
                     price:
