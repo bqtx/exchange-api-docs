@@ -3,11 +3,11 @@ servers:
   - description: BQXT Public
     url: "https://api.bqtx.com"
 info:
-  description: BQTX Public Endpoints
+  description: BQTX Public Endpoints | Base URL https://api.bqtx.com
   version: 1.0.0
-  title: BQTX PublicEndpoints
+  title: BQTX Public Endpoints
   contact:
-    email: patrick@bqtx.com
+    email: info@bqtx.com
   license:
     name: Apache 2.0
     url: "http://www.apache.org/licenses/LICENSE-2.0.html"
@@ -233,7 +233,7 @@ paths:
     get:
       tags:
         - public
-      summary: currencies
+      summary: status
       description: system status summary based on currencies
       operationId: summary
       parameters:
@@ -287,7 +287,7 @@ paths:
     get:
       tags:
         - public
-      summary: tickers (summary)
+      summary: summary
       description: pairs based tickers summary
       operationId: tickers
       parameters:
